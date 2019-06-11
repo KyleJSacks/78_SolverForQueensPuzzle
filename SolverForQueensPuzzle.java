@@ -60,20 +60,34 @@ public class SolverForQueensPuzzle {
 
         // Which has been requested, a base case or recursive case?
             if(inProgress.accept()){
-		solutions += inProgress;
-		nBoardsConsidered++;
-	    }
-            
-            	System.out.println( "  for debugging: base case detected for..."
+				solutions.add(inProgress);
+				nBoardsConsidered++;
+				
+            	/*System.out.println( "  for debugging: base case detected for..."
                             	  + System.lineSeparator()
                             	  + inProgress
-                           	   );
-
-
-            System.out.println( "  for debugging: recursive case detected for..."
-                              + System.lineSeparator()
-                              + inProgress
-                              );
+                           	      ); */
+			}
+			else if(inProgress.lastIsNg()){
+				nBoardsConsidered++;
+            	/*System.out.println( "  for debugging: base case detected for..."
+                            	  + System.lineSeparator()
+                            	  + inProgress
+                           	      ); */
+			}
+			else{
+				for(int i=0;i<inProgress.ranks();i++){
+					BoardForQueensPuzzle copy = new BoardForQueensPuzzle(inProgress);
+					inProgress.populate(i);
+					recordSolutionsStarted();
+					inProgress = copy;
+					nBoardsConsidered++;
+					/*System.out.println( "  for debugging: recursive case detected for..."
+								+ System.lineSeparator()
+								+ inProgress
+								); */
+				}
+			}
     }
 
 
